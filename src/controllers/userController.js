@@ -9,7 +9,7 @@ export async function createUser(req, res) {
   const usuarioSchema = joi.object({
     name: joi.string().required(),
     email: joi.string().email().required(),
-    password: joi.string().min(3).max(15).required(),
+    password: joi.string().min(5).max(15).required(),
     password_confirmation: joi.any().valid(joi.ref('password')).required()
   });
 
@@ -24,7 +24,7 @@ export async function createUser(req, res) {
   const senhaCriptografada = bcrypt.hashSync(usuario.password, 10);
 
   //Cadastrar de fato os dados no banco com o a senha criptografada.
-  await db.collection('usuarios').insertOne({ ...usuario, password: senhaCriptografada });
+  await db.collection('usuarios').insertOne({ name: usuario.name,email: usuario.email, password: senhaCriptografada });
   res.status(201).send('Usuário criado com sucesso');
 }
 
