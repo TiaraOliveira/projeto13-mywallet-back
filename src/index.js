@@ -17,6 +17,5 @@ app.use(extractRouter);
 
 
 
-const PORT = process.env.PORT
 
-app.listen(PORT, ()=>{console.log("Servidor funcionando")})
+app.listen(process.env.PORT ||3000, ()=>{console.log("Servidor funcionando")})
