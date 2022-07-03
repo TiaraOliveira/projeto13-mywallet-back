@@ -2,7 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import { loginUser, createUser } from './controllers/userController.js';
-import { Cashin, getSolds } from './controllers/valuesController.js';
+import { Cashin, getSolds, Cashout } from './controllers/valuesController.js';
 
 dotenv.config();
 
@@ -17,6 +17,11 @@ app.post('/cadastrar', createUser);
 //Rotas para a entradas e saídas
 app.post('/Cashin', Cashin);
 app.get('/Cashin', getSolds);
+app.post('/Cashout', Cashout);
+
+
+
+
 
 const PORT = process.env.PORT
 
