@@ -3,13 +3,14 @@ import joi from 'joi';
 import dayjs from "dayjs"
 
 export async function getSolds(req, res) {
+  console.log("aquiiiiiiiiiiii")
   const session = res.locals.session;
     const extrato = await db
       .collection('sold')
       .find({userId: new objectId(session.userId)})
       .toArray();
   
-    res.send(extrato);
+    return res.send(extrato);
 }
 
 export async function Cashin(req, res) {
