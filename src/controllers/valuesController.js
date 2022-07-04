@@ -15,6 +15,7 @@ export async function getSolds(req, res) {
 
 export async function Cashin(req, res) {
   const entry = req.body;
+  const session = res.locals.session;
   const dia = dayjs().format("DD-MM");
   const entrySchema = joi.object({
     soldin: joi.number().required(),
@@ -25,7 +26,7 @@ export async function Cashin(req, res) {
     return res.sendStatus(422);
   }
 
-  await db.collection('sold').insertOne({ ...entry, type: "increase", dia:dia });
+  await db.collection('sold').insertOne({ ...entry, type: "increase", dia:dia, userId: session.userId  });
   res.status(201).send('Entrada criada com sucesso');
 }
 
