@@ -45,3 +45,19 @@ export async function Cashout(req, res) {
   res.status(201).send('Entrada criada com sucesso');
 }
 
+export async function Delete(req, res) {
+  const { id } = req.params;
+
+  
+
+  try {
+    const usersColection = db.collection("sold");
+    await usersColection.deleteOne({ _id: new ObjectId(id) })
+        
+    res.sendStatus(200)
+   
+   } catch (error) {
+    res.status(500).send(error)
+  
+   }
+}; 
