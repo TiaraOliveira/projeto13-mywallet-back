@@ -3,7 +3,7 @@ import joi from 'joi';
 import dayjs from "dayjs"
 
 export async function getSolds(req, res) {
- 
+  const session = res.locals.session;
     const extrato = await db
       .collection('sold')
       .find({userId: new objectId(session.userId)})
