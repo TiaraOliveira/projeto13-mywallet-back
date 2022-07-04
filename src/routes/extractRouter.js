@@ -1,6 +1,6 @@
 import { Cashin, getSolds, Cashout } from '../controllers/valuesController.js';
 import { Router } from 'express';
-import validateUser from '../middlewares/validateuser.js';
+import validateUser from '../middlewares/validateusers.js';
 
 const router = Router();
 
