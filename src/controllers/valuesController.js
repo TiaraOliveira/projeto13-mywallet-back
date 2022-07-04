@@ -6,7 +6,7 @@ export async function getSolds(req, res) {
  
     const extrato = await db
       .collection('sold')
-      .find({})
+      .find({userId: new objectId(session.userId)})
       .toArray();
   
     res.send(extrato);
