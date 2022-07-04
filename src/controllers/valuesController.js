@@ -3,10 +3,10 @@ import joi from 'joi';
 import dayjs from "dayjs"
 
 export async function getSolds(req, res) {
-  res.locals.session = session;
+ 
     const extrato = await db
       .collection('sold')
-      .find({userId: new objectId(session.userId) })
+      .find({})
       .toArray();
   
     res.send(extrato);
@@ -14,8 +14,6 @@ export async function getSolds(req, res) {
 
 export async function Cashin(req, res) {
   const entry = req.body;
-
- 
   const dia = dayjs().format("DD-MM");
   const entrySchema = joi.object({
     soldin: joi.number().required(),
@@ -33,7 +31,6 @@ export async function Cashin(req, res) {
 
 export async function Cashout(req, res) {
   const entry = req.body;
-  
   const dia = dayjs().format("DD-MM");
   const entrySchema = joi.object({
     soldin: joi.number().required(),
