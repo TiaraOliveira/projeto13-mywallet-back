@@ -3,8 +3,8 @@ import { Router } from 'express';
 
 const router = Router();
 
-router.post('/Cashin', Cashin);
-router.get('/Cashin', getSolds);
-router.post('/Cashout', Cashout);
+router.post('/Cashin', validateUser, Cashin);
+router.get('/Cashin', validateUser, getSolds);
+router.post('/Cashout', validateUser, Cashout);
 
 export default router;

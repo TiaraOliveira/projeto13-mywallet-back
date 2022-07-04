@@ -3,10 +3,10 @@ import joi from 'joi';
 import dayjs from "dayjs"
 
 export async function getSolds(req, res) {
-   
+  res.locals.session = session;
     const extrato = await db
       .collection('sold')
-      .find({ })
+      .find({userId: new objectId(session.userId) })
       .toArray();
   
     res.send(extrato);
@@ -14,8 +14,8 @@ export async function getSolds(req, res) {
 
 export async function Cashin(req, res) {
   const entry = req.body;
-  const { authorization } = req.headers;
-  const token = authorization?.replace('Bearer ', '');
+
+ 
   const dia = dayjs().format("DD-MM");
   const entrySchema = joi.object({
     soldin: joi.number().required(),
@@ -25,11 +25,7 @@ export async function Cashin(req, res) {
   if (error) {
     return res.sendStatus(422);
   }
-const session = await db.collection('usuarios').findOne({ token });
 
-  if (!session) {
-    return res.send("erro foi aqui");
-  }
   await db.collection('sold').insertOne({ ...entry, type: "increase", dia:dia });
   res.status(201).send('Entrada criada com sucesso');
 }
@@ -37,8 +33,7 @@ const session = await db.collection('usuarios').findOne({ token });
 
 export async function Cashout(req, res) {
   const entry = req.body;
-  const { authorization } = req.headers;
-  const token = authorization?.replace('Bearer ', '');
+  
   const dia = dayjs().format("DD-MM");
   const entrySchema = joi.object({
     soldin: joi.number().required(),
@@ -48,11 +43,7 @@ export async function Cashout(req, res) {
   if (error) {
     return res.sendStatus(422);
   }
-const session = await db.collection('usuarios').findOne({ token });
 
-  if (!session) {
-    return res.send("erro foi aqui");
-  }
   await db.collection('sold').insertOne({ ...entry, type: "decrease", dia:dia });
   res.status(201).send('Entrada criada com sucesso');
 }
