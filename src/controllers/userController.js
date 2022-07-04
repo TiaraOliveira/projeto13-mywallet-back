@@ -53,7 +53,7 @@ export async function loginUser(req, res) {
       userId: user._id
     });
 
-    return res.status(201).send({ token });
+    return res.status(201).send({ token, name: user.name });
   } else {
     return res.status(401).send('Senha ou email incorretos!');
   }
